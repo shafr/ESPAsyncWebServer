@@ -45,7 +45,7 @@ jobs:
     - name: Install 3rd party dependecies
       run: | 
         pio lib -g install \
-        https://github.com/me-no-dev/AsyncTCP        
+        https://github.com/me-no-dev/AsyncTCP \
         https://github.com/me-no-dev/ESPAsyncTCP
 
     - name: Create main file
