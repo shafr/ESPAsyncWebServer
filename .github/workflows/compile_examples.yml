@@ -44,7 +44,8 @@ jobs:
         https://github.com/me-no-dev/AsyncTCP \
         https://github.com/me-no-dev/ESPAsyncTCP \
         https://github.com/alanswx/ESPAsyncWiFiManager \
-        https://github.com/lorol/ESPAsyncWebServer 
+        https://github.com/adafruit/DHT-sensor-library \
+        https://github.com/lorol/ESPAsyncWebServer
         
     - name: Run PlatformIO Examples
       run: pio ci --board=nodemcuv2
