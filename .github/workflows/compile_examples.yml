@@ -1,0 +1,51 @@
+name: ESP Async Web Server CI
+
+on:
+  push:
+    branches:
+    - master
+    - release/*
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        example: 
+          - "examples/ESP_AsyncFSBrowser/ESP_AsyncFSBrowser.ino"
+          - "examples/regex_patterns/regex_patterns.ino"
+          - "examples/simple_server/simple_server.ino"
+          - "examples/CaptivePortal/CaptivePortal.ino"
+          - "examples/SmartSwitch/SmartSwitch.ino"
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache pip
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: ${{ runner.os }}-pip-
+    - name: Cache PlatformIO
+      uses: actions/cache@v2
+      with:
+        path: ~/.platformio
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+    - name: Set up Python
+      uses: actions/setup-python@v2
+    - name: Install PlatformIO
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade platformio
+    - name: Install 3rd party dependecies
+      run: | 
+        pio lib -g install \
+        https://github.com/me-no-dev/AsyncTCP \
+        https://github.com/me-no-dev/ESPAsyncTCP \
+        https://github.com/lorol/ESPAsyncWebServer
+        
+    - name: Run PlatformIO Examples
+      run: pio ci --board=nodemcuv2
+      env:
+        PLATFORMIO_CI_SRC: ${{ matrix.example }}
