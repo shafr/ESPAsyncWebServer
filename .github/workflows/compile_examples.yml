@@ -45,6 +45,7 @@ jobs:
         https://github.com/me-no-dev/ESPAsyncTCP \
         https://github.com/alanswx/ESPAsyncWiFiManager \
         https://github.com/adafruit/DHT-sensor-library \
+        https://github.com/franksmicro/Arduino/tree/master/libraries/Xtea \
         https://github.com/lorol/ESPAsyncWebServer
         
     - name: Run PlatformIO Examples
